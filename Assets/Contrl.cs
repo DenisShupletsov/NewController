@@ -22,7 +22,11 @@ public class Contrl : MonoBehaviour
 	private float smoothJumpEffect;
 	
 	[SerializeField] private LayerMask _graundLayer;
-
+	
+	
+	//debug
+	public Mesh mesh;
+	
     void Start()
     {
 	    //_playerRigidbody = this.GetComponent<Rigidbody>();
@@ -37,6 +41,13 @@ public class Contrl : MonoBehaviour
 	    
 	    JumpEngage(false);
     }
+    
+	void OnDrawGizmosSelected()
+	{
+		Gizmos.color = Color.white;
+		Gizmos.DrawWireSphere(_characterTransform.position - new Vector3(0, _halfCharacterHeight, 0), 0.4f);
+		Gizmos.DrawWireSphere(_characterTransform.position + new Vector3(0, _halfCharacterHeight, 0), 0.4f);
+	}
 
     private void FixedUpdate()
     {
@@ -55,7 +66,7 @@ public class Contrl : MonoBehaviour
 	    
 		//jump
 		smoothJumpEffect = (stopPositionY - _characterTransform.position.y) * 1.7f;
-			//max gravity force
+		//max gravity force
 		smoothJumpEffect = Mathf.Clamp(smoothJumpEffect, 0, 6f);
 		
 	    if(isJump)
